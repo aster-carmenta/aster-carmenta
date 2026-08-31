@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Tvoj osobni simbol – Vaga</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #f5efe4;
+    color: #29234a;
+    font-family: Georgia, serif;
+}
+
+.page {
+    max-width: 1000px;
+    margin: auto;
+    padding: 50px 25px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 38px;
+    font-weight: normal;
+    margin-bottom: 15px;
+}
+
+.intro {
+    max-width: 680px;
+    margin: 0 auto 40px;
+    line-height: 1.7;
+}
+
+/* -------------------------
+   PROSTOR ZA NOVE KARTICE
+------------------------- */
+
+.new-items {
+    min-height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+/* -------------------------
+   KARTICE
+------------------------- */
+
+.item {
+    background: #fffaf1;
+    border: 1px solid #29234a;
+    border-radius: 20px;
+    padding: 9px 12px 9px 15px;
+    font-size: 14px;
+    cursor: grab;
+    user-select: none;
+    touch-action: none;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.item:active {
+    cursor: grabbing;
+}
+
+.item.dragging {
+    position: fixed;
+    z-index: 1000;
+    pointer-events: none;
+    transform: scale(1.08);
+}
+
+/* GUMB ZA BRISANJE */
+
+.delete-button {
+    margin-left: 6px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: #29234a;
+    font-family: Arial, sans-serif;
+    font-size: 17px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.delete-button:hover {
+    opacity: 0.5;
+}
+
+/* -------------------------
+   VAGA
+------------------------- */
+
+.scale-area {
+    position: relative;
+    width: 900px;
+    max-width: 100%;
+    height: 520px;
+    margin: 20px auto;
+}
+
+/* SREDIŠNJA OS */
+
+.pivot {
+    position: absolute;
+    left: 50%;
+    top: 175px;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 28px solid transparent;
+    border-right: 28px solid transparent;
+    border-top: 80px solid #29234a;
+    z-index: 2;
+}
+
+/* GREDA */
+
+.beam {
+    position: absolute;
+    width: 650px;
+    max-width: 80%;
+    height: 8px;
+    background: #29234a;
+    left: 50%;
+    top: 165px;
+    transform: translateX(-50%) rotate(0deg);
+    transform-origin: center;
+    transition: transform 0.6s ease;
+    border-radius: 5px;
+    z-index: 5;
+}
+
+/* ZDJELICE */
+
+.pan {
+    position: absolute;
+    top: 185px;
+    width: 260px;
+    min-height: 180px;
+    border: 2px solid #29234a;
+    border-radius: 0 0 130px 130px;
+    padding: 18px;
+    transition: transform 0.6s ease;
+    background: rgba(245, 239, 228, 0.35);
+    z-index: 3;
+}
+
+.left-pan {
+    left: 30px;
+}
+
+.right-pan {
+    right: 30px;
+}
+
+.pan-title {
+    font-size: 16px;
+    margin-bottom: 15px;
+    letter-spacing: 1px;
+}
+
+.items-zone {
+    min-height: 110px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+/* -------------------------
+   KONTROLE
+------------------------- */
+
+.controls {
+    margin: 25px auto;
+}
+
+input {
+    width: 300px;
+    max-width: 70%;
+    padding: 12px;
+    border: 1px solid #29234a;
+    background: #fffaf1;
+    font-family: Georgia, serif;
+    font-size: 15px;
+}
+
+.add-button {
+    padding: 12px 18px;
+    margin-left: 6px;
+    border: none;
+    background: #29234a;
+    color: white;
+    font-family: Georgia, serif;
+    cursor: pointer;
+}
+
+.instruction {
+    margin-top: 15px;
+    font-size: 14px;
+    opacity: 0.7;
+}
+
+/* -------------------------
+   BILJEŠKE
+------------------------- */
+
+.notes {
+    max-width: 650px;
+    margin: 50px auto 0;
+}
+
+.question {
+    font-size: 21px;
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+textarea {
+    width: 100%;
+    min-height: 150px;
+    padding: 15px;
+    border: 1px solid #29234a;
+    background: #fffaf1;
+    font-family: Georgia, serif;
+    font-size: 15px;
+    line-height: 1.6;
+    resize: vertical;
+}
+
+/* -------------------------
+   MOBITEL
+------------------------- */
+
+@media (max-width: 700px) {
+
+    .scale-area {
+        height: 650px;
+    }
+
+    .beam {
+        width: 500px;
+    }
+
+    .pan {
+        width: 210px;
+    }
+
+    .left-pan {
+        left: 0;
+    }
+
+    .right-pan {
+        right: 0;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+<div class="page">
+
+<h1>Tvoj osobni simbol: Vaga</h1>
+
+<div class="intro">
+    Dodaj elemente koji ti se pojavljuju dok istražuješ svoju temu.
+    Zatim ih postavi na onu stranu vage na koju ih želiš staviti.
+    Možeš ih premještati koliko god puta želiš.
+</div>
+
+
+<!-- NOVE KARTICE -->
+
+<div
+    class="new-items"
+    id="newItems">
+</div>
+
+
+<!-- DODAVANJE -->
+
+<div class="controls">
+
+    <input
+        id="newItem"
+        type="text"
+        placeholder="Dodaj element">
+
+    <button
+        class="add-button"
+        id="addButton">
+        Dodaj
+    </button>
+
+</div>
+
+
+<div class="instruction">
+    Povuci element na lijevu ili desnu stranu vage.
+</div>
+
+
+<!-- VAGA -->
+
+<div class="scale-area">
+
+
+    <!-- GREDA -->
+
+    <div
+        class="beam"
+        id="beam">
+    </div>
+
+
+    <!-- SREDIŠNJI OSLONAC -->
+
+    <div class="pivot"></div>
+
+
+    <!-- LIJEVA ZDJELICA -->
+
+    <div
+        class="pan left-pan"
+        id="leftPan">
+
+        <div class="pan-title">
+            LIJEVA STRANA
+        </div>
+
+        <div
+            class="items-zone"
+            id="leftItems">
+        </div>
+
+    </div>
+
+
+    <!-- DESNA ZDJELICA -->
+
+    <div
+        class="pan right-pan"
+        id="rightPan">
+
+        <div class="pan-title">
+            DESNA STRANA
+        </div>
+
+        <div
+            class="items-zone"
+            id="rightItems">
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- BILJEŠKE -->
+
+<div class="notes">
+
+    <div class="question">
+        Što sada primjećuješ?
+    </div>
+
+    <textarea
+        id="notes"
+        placeholder="Zapiši ono što ti se pojavljuje...">
+    </textarea>
+
+</div>
+
+</div>
+
+
+<script>
+
+/* -------------------------
+   VARIJABLE
+------------------------- */
+
+let draggedItem = null;
+
+let offsetX = 0;
+
+let offsetY = 0;
+
+
+/* -------------------------
+   DODAVANJE ELEMENTA
+------------------------- */
+
+function addItem() {
+
+    const input =
+        document.getElementById("newItem");
+
+    const text =
+        input.value.trim();
+
+    if (!text) return;
+
+
+    const item =
+        createItem(text);
+
+
+    document
+        .getElementById("newItems")
+        .appendChild(item);
+
+
+    input.value = "";
+
+    save();
+
+}
+
+
+/* -------------------------
+   KREIRANJE KARTICE
+------------------------- */
+
+function createItem(text) {
+
+    const item =
+        document.createElement("div");
+
+    item.className = "item";
+
+
+    /* TEKST */
+
+    const textSpan =
+        document.createElement("span");
+
+    textSpan.textContent = text;
+
+
+    /* X ZA BRISANJE */
+
+    const deleteButton =
+        document.createElement("button");
+
+    deleteButton.textContent = "×";
+
+    deleteButton.className =
+        "delete-button";
+
+
+    deleteButton.addEventListener(
+        "pointerdown",
+        function(event) {
+
+            event.stopPropagation();
+
+        }
+    );
+
+
+    deleteButton.addEventListener(
+        "click",
+        function(event) {
+
+            event.stopPropagation();
+
+            item.remove();
+
+            updateScale();
+
+            save();
+
+        }
+    );
+
+
+    item.appendChild(textSpan);
+
+    item.appendChild(deleteButton);
+
+
+    /* POVLAČENJE */
+
+    item.addEventListener(
+        "pointerdown",
+        startDrag
+    );
+
+
+    return item;
+
+}
+
+
+/* -------------------------
+   POČETAK POVLAČENJA
+------------------------- */
+
+function startDrag(event) {
+
+    if (
+        event.target.classList.contains(
+            "delete-button"
+        )
+    ) {
+
+        return;
+
+    }
+
+
+    event.preventDefault();
+
+
+    draggedItem =
+        event.currentTarget;
+
+
+    const rect =
+        draggedItem.getBoundingClientRect();
+
+
+    offsetX =
+        event.clientX - rect.left;
+
+    offsetY =
+        event.clientY - rect.top;
+
+
+    draggedItem.classList.add(
+        "dragging"
+    );
+
+
+    draggedItem.style.width =
+        rect.width + "px";
+
+
+    moveDrag(event);
+
+
+    document.addEventListener(
+        "pointermove",
+        moveDrag
+    );
+
+
+    document.addEventListener(
+        "pointerup",
+        endDrag,
+        { once: true }
+    );
+
+}
+
+
+/* -------------------------
+   POVLAČENJE
+------------------------- */
+
+function moveDrag(event) {
+
+    if (!draggedItem) return;
+
+
+    draggedItem.style.left =
+        (event.clientX - offsetX) + "px";
+
+
+    draggedItem.style.top =
+        (event.clientY - offsetY) + "px";
+
+}
+
+
+/* -------------------------
+   ZAVRŠETAK POVLAČENJA
+------------------------- */
+
+function endDrag(event) {
+
+    if (!draggedItem) return;
+
+
+    document.removeEventListener(
+        "pointermove",
+        moveDrag
+    );
+
+
+    const leftPan =
+        document
+        .getElementById("leftPan")
+        .getBoundingClientRect();
+
+
+    const rightPan =
+        document
+        .getElementById("rightPan")
+        .getBoundingClientRect();
+
+
+    const x =
+        event.clientX;
+
+    const y =
+        event.clientY;
+
+
+    /* LIJEVA STRANA */
+
+    if (
+        x >= leftPan.left &&
+        x <= leftPan.right &&
+        y >= leftPan.top &&
+        y <= leftPan.bottom
+    ) {
+
+        document
+            .getElementById("leftItems")
+            .appendChild(
+                draggedItem
+            );
+
+    }
+
+
+    /* DESNA STRANA */
+
+    else if (
+        x >= rightPan.left &&
+        x <= rightPan.right &&
+        y >= rightPan.top &&
+        y <= rightPan.bottom
+    ) {
+
+        document
+            .getElementById("rightItems")
+            .appendChild(
+                draggedItem
+            );
+
+    }
+
+
+    /* AKO NIJE NA STRANI */
+
+    else {
+
+        document
+            .getElementById("newItems")
+            .appendChild(
+                draggedItem
+            );
+
+    }
+
+
+    draggedItem.classList.remove(
+        "dragging"
+    );
+
+
+    draggedItem.style.position = "";
+
+    draggedItem.style.left = "";
+
+    draggedItem.style.top = "";
+
+    draggedItem.style.width = "";
+
+
+    draggedItem = null;
+
+
+    updateScale();
+
+    save();
+
+}
+
+
+/* -------------------------
+   NAGIB VAGE
+------------------------- */
+
+function updateScale() {
+
+    const left =
+        document
+        .getElementById("leftItems")
+        .children.length;
+
+
+    const right =
+        document
+        .getElementById("rightItems")
+        .children.length;
+
+
+    const difference =
+        right - left;
+
+
+    /*
+       Svaki element pomiče vagu
+       za nekoliko stupnjeva.
+    */
+
+    let angle =
+        difference * 5;
+
+
+    if (angle > 20) {
+
+        angle = 20;
+
+    }
+
+
+    if (angle < -20) {
+
+        angle = -20;
+
+    }
+
+
+    document
+        .getElementById("beam")
+        .style.transform =
+        `translateX(-50%) rotate(${angle}deg)`;
+
+}
+
+
+/* -------------------------
+   SPREMANJE
+------------------------- */
+
+function save() {
+
+    const left =
+        [
+            ...document.querySelectorAll(
+                "#leftItems .item span"
+            )
+        ]
+        .map(
+            x => x.textContent
+        );
+
+
+    const right =
+        [
+            ...document.querySelectorAll(
+                "#rightItems .item span"
+            )
+        ]
+        .map(
+            x => x.textContent
+        );
+
+
+    const waiting =
+        [
+            ...document.querySelectorAll(
+                "#newItems .item span"
+            )
+        ]
+        .map(
+            x => x.textContent
+        );
+
+
+    const notes =
+        document
+        .getElementById("notes")
+        .value;
+
+
+    localStorage.setItem(
+        "scaleLeft",
+        JSON.stringify(left)
+    );
+
+
+    localStorage.setItem(
+        "scaleRight",
+        JSON.stringify(right)
+    );
+
+
+    localStorage.setItem(
+        "scaleWaiting",
+        JSON.stringify(waiting)
+    );
+
+
+    localStorage.setItem(
+        "scaleNotes",
+        notes
+    );
+
+}
+
+
+/* -------------------------
+   UČITAVANJE
+------------------------- */
+
+function load() {
+
+    const left =
+        JSON.parse(
+            localStorage.getItem(
+                "scaleLeft"
+            ) || "[]"
+        );
+
+
+    const right =
+        JSON.parse(
+            localStorage.getItem(
+                "scaleRight"
+            ) || "[]"
+        );
+
+
+    const waiting =
+        JSON.parse(
+            localStorage.getItem(
+                "scaleWaiting"
+            ) || "[]"
+        );
+
+
+    left.forEach(
+        text => {
+
+            document
+                .getElementById("leftItems")
+                .appendChild(
+                    createItem(text)
+                );
+
+        }
+    );
+
+
+    right.forEach(
+        text => {
+
+            document
+                .getElementById("rightItems")
+                .appendChild(
+                    createItem(text)
+                );
+
+        }
+    );
+
+
+    waiting.forEach(
+        text => {
+
+            document
+                .getElementById("newItems")
+                .appendChild(
+                    createItem(text)
+                );
+
+        }
+    );
+
+
+    document
+        .getElementById("notes")
+        .value =
+        localStorage.getItem(
+            "scaleNotes"
+        ) || "";
+
+
+    updateScale();
+
+}
+
+
+/* -------------------------
+   GUMB
+------------------------- */
+
+document
+    .getElementById("addButton")
+    .addEventListener(
+        "click",
+        addItem
+    );
+
+
+/* ENTER */
+
+document
+    .getElementById("newItem")
+    .addEventListener(
+        "keydown",
+        function(event) {
+
+            if (
+                event.key === "Enter"
+            ) {
+
+                addItem();
+
+            }
+
+        }
+    );
+
+
+/* -------------------------
+   BILJEŠKE
+------------------------- */
+
+document
+    .getElementById("notes")
+    .addEventListener(
+        "input",
+        save
+    );
+
+
+/* -------------------------
+   POKRENI
+------------------------- */
+
+load();
+
+</script>
+
+</body>
+</html>
