@@ -38,6 +38,7 @@ h1 {
     line-height: 1.7;
 }
 
+
 /* -------------------------
    NOVE KARTICE
 ------------------------- */
@@ -51,6 +52,7 @@ h1 {
     gap: 10px;
     margin-bottom: 20px;
 }
+
 
 /* -------------------------
    KARTICE
@@ -82,7 +84,10 @@ h1 {
     transform: scale(1.08);
 }
 
-/* GUMB ZA BRISANJE */
+
+/* -------------------------
+   GUMB ZA BRISANJE
+------------------------- */
 
 .delete-button {
     margin-left: 6px;
@@ -100,8 +105,9 @@ h1 {
     opacity: 0.5;
 }
 
+
 /* -------------------------
-   VRATA
+   PODRUČJE VRATA
 ------------------------- */
 
 .door-area {
@@ -109,19 +115,31 @@ h1 {
     max-width: 900px;
     height: 500px;
     margin: 0 auto;
+
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 20px;
+
+    gap: 30px;
 }
 
-/* STRANE */
+
+/* -------------------------
+   STRANE
+------------------------- */
 
 .side {
     width: 250px;
-    min-height: 360px;
-    border: 1px solid #29234a;
+    height: 380px;
+    min-height: 380px;
+
+    border: 1px solid rgba(41, 35, 74, 0.35);
+
     padding: 20px;
+
+    background: rgba(255, 250, 241, 0.5);
+
+    flex-shrink: 0;
 }
 
 .side-title {
@@ -132,11 +150,14 @@ h1 {
 
 .items-zone {
     min-height: 280px;
+
     display: flex;
     flex-direction: column;
     align-items: center;
+
     gap: 10px;
 }
+
 
 /* -------------------------
    VRATA
@@ -144,59 +165,206 @@ h1 {
 
 .door-wrapper {
     position: relative;
-    width: 260px;
-    height: 380px;
+
+    width: 240px;
+    height: 400px;
+
     flex-shrink: 0;
-    perspective: 1000px;
+
+    perspective: 1200px;
 }
+
+
+/* OKVIR */
 
 .door-frame {
     position: absolute;
-    width: 220px;
-    height: 340px;
-    left: 20px;
-    top: 20px;
-    border: 12px solid #29234a;
+
+    width: 224px;
+    height: 384px;
+
+    left: 8px;
+    top: 8px;
+
     background: #f5efe4;
+
+    border: 7px solid #29234a;
+
+    box-shadow:
+        0 8px 20px rgba(41, 35, 74, 0.15);
 }
+
+
+/* UNUTARNJI RUB */
+
+.door-frame::before {
+    content: "";
+
+    position: absolute;
+
+    inset: 7px;
+
+    border: 1px solid rgba(41, 35, 74, 0.3);
+}
+
+
+/* -------------------------
+   SMEĐA VRATA
+------------------------- */
 
 .door {
     position: absolute;
-    width: 196px;
-    height: 316px;
-    left: 32px;
-    top: 32px;
-    background: #29234a;
+
+    width: 210px;
+    height: 370px;
+
+    left: 15px;
+    top: 15px;
+
+    background: linear-gradient(
+        90deg,
+        #4b2d20 0%,
+        #60402d 20%,
+        #6b4731 50%,
+        #60402d 80%,
+        #4b2d20 100%
+    );
+
     transform-origin: left center;
+
     transform: rotateY(0deg);
-    transition: transform 0.8s ease;
+
+    transition:
+        transform 0.8s cubic-bezier(.2,.7,.2,1);
+
     cursor: pointer;
+
     z-index: 20;
+
+    border: 1px solid #3b2419;
+
+    box-shadow:
+        4px 7px 15px rgba(41, 35, 74, 0.25);
 }
+
+
+/* OTVORENA VRATA */
 
 .door.open {
     transform: rotateY(-105deg);
 }
 
+
+/* -------------------------
+   GORNJI PANEL
+------------------------- */
+
+.door::before {
+    content: "";
+
+    position: absolute;
+
+    left: 20px;
+    right: 20px;
+    top: 20px;
+
+    height: 125px;
+
+    border: 2px solid rgba(245, 239, 228, 0.55);
+
+    box-shadow:
+        inset 0 0 0 5px rgba(60, 35, 23, 0.22);
+}
+
+
+/* -------------------------
+   DONJI PANEL
+------------------------- */
+
+.door::after {
+    content: "";
+
+    position: absolute;
+
+    left: 20px;
+    right: 20px;
+    bottom: 48px;
+
+    height: 135px;
+
+    border: 2px solid rgba(245, 239, 228, 0.55);
+
+    box-shadow:
+        inset 0 0 0 5px rgba(60, 35, 23, 0.22);
+}
+
+
+/* -------------------------
+   KVAKA
+------------------------- */
+
 .door-handle {
     position: absolute;
+
     right: 18px;
-    top: 155px;
-    width: 12px;
-    height: 12px;
+    top: 175px;
+
+    width: 14px;
+    height: 14px;
+
     border-radius: 50%;
-    background: #f5efe4;
+
+    background: #c7a76a;
+
+    border: 1px solid #8c6b3e;
+
+    box-shadow:
+        0 1px 3px rgba(0,0,0,0.3);
+
+    z-index: 5;
 }
+
+
+/* DETALJ KVake */
+
+.door-handle::after {
+    content: "";
+
+    position: absolute;
+
+    width: 4px;
+    height: 4px;
+
+    border-radius: 50%;
+
+    background: #6b4731;
+
+    left: 4px;
+    top: 4px;
+}
+
+
+/* -------------------------
+   TEKST NA VRATIMA
+------------------------- */
 
 .door-text {
     position: absolute;
-    bottom: 8px;
+
+    bottom: 13px;
     left: 0;
+
     width: 100%;
-    font-size: 12px;
-    color: #f5efe4;
-    letter-spacing: 1px;
+
+    font-size: 9px;
+
+    color: rgba(245, 239, 228, 0.7);
+
+    letter-spacing: 2px;
+
+    text-align: center;
 }
+
 
 /* -------------------------
    KONTROLE
@@ -209,28 +377,42 @@ h1 {
 input {
     width: 300px;
     max-width: 70%;
+
     padding: 12px;
+
     border: 1px solid #29234a;
+
     background: #fffaf1;
+
     font-family: Georgia, serif;
+
     font-size: 15px;
 }
 
 .add-button {
     padding: 12px 18px;
+
     margin-left: 6px;
+
     border: none;
+
     background: #29234a;
+
     color: white;
+
     font-family: Georgia, serif;
+
     cursor: pointer;
 }
 
 .door-instruction {
     margin-top: 15px;
+
     font-size: 14px;
+
     opacity: 0.7;
 }
+
 
 /* -------------------------
    BILJEŠKE
@@ -238,26 +420,38 @@ input {
 
 .notes {
     max-width: 650px;
+
     margin: 50px auto 0;
 }
 
 .question {
     font-size: 21px;
+
     margin-bottom: 15px;
+
     line-height: 1.5;
 }
 
 textarea {
     width: 100%;
+
     min-height: 150px;
+
     padding: 15px;
+
     border: 1px solid #29234a;
+
     background: #fffaf1;
+
     font-family: Georgia, serif;
+
     font-size: 15px;
+
     line-height: 1.6;
+
     resize: vertical;
 }
+
 
 /* -------------------------
    MOBITEL
@@ -273,6 +467,7 @@ textarea {
     .side {
         width: 90%;
         min-height: 200px;
+        height: auto;
     }
 
     .items-zone {
@@ -301,6 +496,7 @@ textarea {
 <div class="page">
 
 <h1>Tvoj osobni simbol: Vrata</h1>
+
 
 <div class="intro">
     Promatraj vrata i dopusti simbolu da kroz proces dobiva tvoje
@@ -426,6 +622,7 @@ textarea {
 ------------------------- */
 
 let draggedItem = null;
+
 let offsetX = 0;
 let offsetY = 0;
 
@@ -488,10 +685,7 @@ function createItem(text) {
         "delete-button";
 
 
-    /*
-       Sprječava da klik na X
-       pokrene povlačenje kartice
-    */
+    /* SPRJEČAVA POVLAČENJE */
 
     deleteButton.addEventListener(
         "pointerdown",
@@ -502,6 +696,8 @@ function createItem(text) {
         }
     );
 
+
+    /* BRISANJE */
 
     deleteButton.addEventListener(
         "click",
@@ -540,11 +736,6 @@ function createItem(text) {
 
 function startDrag(event) {
 
-    /*
-       Ako je kliknut X,
-       ne pokreći povlačenje
-    */
-
     if (
         event.target.classList.contains(
             "delete-button"
@@ -555,6 +746,7 @@ function startDrag(event) {
 
 
     event.preventDefault();
+
 
     draggedItem =
         event.currentTarget;
@@ -649,9 +841,7 @@ function endDrag(event) {
         event.clientY;
 
 
-    /* -------------------------
-       IZA VRATA
-    ------------------------- */
+    /* IZA VRATA */
 
     if (
         x >= behind.left &&
@@ -669,9 +859,7 @@ function endDrag(event) {
     }
 
 
-    /* -------------------------
-       ISPRED VRATA
-    ------------------------- */
+    /* ISPRED VRATA */
 
     else if (
         x >= ahead.left &&
@@ -689,9 +877,7 @@ function endDrag(event) {
     }
 
 
-    /* -------------------------
-       NIJE NA VAGI
-    ------------------------- */
+    /* NIJE NA STRANI */
 
     else {
 
@@ -849,6 +1035,8 @@ function load() {
         );
 
 
+    /* IZA */
+
     behind.forEach(
         text => {
 
@@ -861,6 +1049,8 @@ function load() {
         }
     );
 
+
+    /* ISPRED */
 
     ahead.forEach(
         text => {
@@ -875,6 +1065,8 @@ function load() {
     );
 
 
+    /* NOVE KARTICE */
+
     waiting.forEach(
         text => {
 
@@ -887,6 +1079,8 @@ function load() {
         }
     );
 
+
+    /* STANJE VRATA */
 
     const doorOpen =
         localStorage.getItem(
@@ -903,6 +1097,8 @@ function load() {
 
     }
 
+
+    /* BILJEŠKE */
 
     document
         .getElementById("notes")
@@ -926,7 +1122,9 @@ document
     );
 
 
-/* ENTER ZA DODAVANJE */
+/* -------------------------
+   ENTER ZA DODAVANJE
+------------------------- */
 
 document
     .getElementById("newItem")
