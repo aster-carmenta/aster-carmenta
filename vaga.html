@@ -13,11 +13,12 @@
 
 <title>Tvoj osobni simbol – Vaga</title>
 
+
 <style>
 
-/* =========================
+/* =====================================================
    OSNOVNO
-========================= */
+===================================================== */
 
 * {
     box-sizing: border-box;
@@ -40,15 +41,20 @@ body {
 .page {
     width: 100%;
     max-width: 1000px;
-    margin: auto;
+    margin: 0 auto;
     padding: 50px 25px;
     text-align: center;
 }
 
+
+/* =====================================================
+   NASLOV
+===================================================== */
+
 h1 {
     font-size: 38px;
     font-weight: normal;
-    margin-bottom: 15px;
+    margin: 0 0 15px;
 }
 
 .intro {
@@ -58,11 +64,12 @@ h1 {
 }
 
 
-/* =========================
-   NOVE KARTICE
-========================= */
+/* =====================================================
+   KARTICE
+===================================================== */
 
 .new-items {
+
     min-height: 70px;
 
     display: flex;
@@ -75,15 +82,12 @@ h1 {
     margin-bottom: 20px;
 }
 
-
-/* =========================
-   KARTICE
-========================= */
-
 .item {
+
     background: #fffaf1;
 
     border: 1px solid #29234a;
+
     border-radius: 20px;
 
     padding: 9px 12px 9px 15px;
@@ -93,14 +97,15 @@ h1 {
     cursor: grab;
 
     user-select: none;
-    touch-action: none;
 
-    z-index: 100;
+    touch-action: none;
 
     display: flex;
     align-items: center;
 
     gap: 4px;
+
+    z-index: 100;
 }
 
 .item:active {
@@ -108,6 +113,7 @@ h1 {
 }
 
 .item.dragging {
+
     position: fixed;
 
     z-index: 1000;
@@ -117,12 +123,8 @@ h1 {
     transform: scale(1.08);
 }
 
-
-/* =========================
-   BRISANJE
-========================= */
-
 .delete-button {
+
     margin-left: 6px;
 
     padding: 0;
@@ -136,61 +138,135 @@ h1 {
     font-family: Arial, sans-serif;
 
     font-size: 17px;
+
     line-height: 1;
 
     cursor: pointer;
 }
 
-.delete-button:hover {
-    opacity: 0.5;
+
+/* =====================================================
+   KONTROLE
+===================================================== */
+
+.controls {
+    margin: 25px auto;
+}
+
+input {
+
+    width: 300px;
+
+    max-width: 70%;
+
+    padding: 12px;
+
+    border: 1px solid #29234a;
+
+    background: #fffaf1;
+
+    font-family: Georgia, serif;
+
+    font-size: 15px;
+}
+
+.add-button {
+
+    padding: 12px 18px;
+
+    margin-left: 6px;
+
+    border: none;
+
+    background: #29234a;
+
+    color: white;
+
+    font-family: Georgia, serif;
+
+    cursor: pointer;
+}
+
+.instruction {
+
+    margin-top: 15px;
+
+    font-size: 14px;
+
+    opacity: 0.7;
 }
 
 
-/* =========================
-   PROSTOR ZA VAGU
-========================= */
+/* =====================================================
+   VAGA – ZAJEDNIČKA SKALA
+===================================================== */
+
+/*
+   Ovo je najvažnija stvar.
+
+   Na računalu:
+   --s = 1
+
+   Na mobitelu:
+   --s = 0.42
+
+   Sve dimenzije vage koriste ovu vrijednost.
+*/
 
 .scale-area {
+
+    --s: 1;
+
     position: relative;
 
     width: 900px;
+
     max-width: 100%;
 
-    height: 540px;
+    height: calc(540px * var(--s));
 
     margin: 25px auto 10px;
 }
 
 
-/* =========================
+/* =====================================================
    CIJELA VAGA
-========================= */
+===================================================== */
 
 .scale {
+
     position: absolute;
 
-    width: 100%;
+    left: 0;
+    top: 0;
+
+    width: 900px;
+
     height: 420px;
 
-    top: 20px;
-    left: 0;
+    transform-origin: top left;
+
+    transform: scale(var(--s));
 }
 
 
-/* =========================
+/* =====================================================
    STUP
-========================= */
+===================================================== */
 
 .stand {
+
     position: absolute;
 
-    left: 50%;
+    left: 450px;
+
     top: 150px;
 
-    transform: translateX(-50%);
-
     width: 16px;
+
     height: 225px;
+
+    transform: translateX(-50%);
 
     background: linear-gradient(
         90deg,
@@ -201,7 +277,8 @@ h1 {
         #686868 100%
     );
 
-    border-radius: 7px 7px 3px 3px;
+    border-radius:
+        7px 7px 3px 3px;
 
     box-shadow:
         1px 0 2px rgba(0,0,0,0.3),
@@ -211,20 +288,23 @@ h1 {
 }
 
 
-/* =========================
+/* =====================================================
    POSTOLJE
-========================= */
+===================================================== */
 
 .base {
+
     position: absolute;
 
-    left: 50%;
+    left: 450px;
+
     top: 360px;
 
-    transform: translateX(-50%);
-
     width: 125px;
+
     height: 18px;
+
+    transform: translateX(-50%);
 
     background: linear-gradient(
         180deg,
@@ -233,7 +313,8 @@ h1 {
         #696969 100%
     );
 
-    border-radius: 8px 8px 4px 4px;
+    border-radius:
+        8px 8px 4px 4px;
 
     box-shadow:
         0 3px 5px rgba(0,0,0,0.25);
@@ -242,24 +323,27 @@ h1 {
 }
 
 
-/* =========================
-   POKRETNI DIO
-========================= */
+/* =====================================================
+   POKRETNA GREDA
+===================================================== */
 
 .balance {
+
     position: absolute;
 
-    width: 100%;
-    height: 300px;
-
     left: 0;
+
     top: 0;
 
-    transform-origin: 50% 150px;
+    width: 900px;
 
-    transform: rotate(0deg);
+    height: 300px;
 
-    transition: none;
+    transform-origin:
+        450px 150px;
+
+    transform:
+        rotate(0deg);
 
     touch-action: none;
 
@@ -267,20 +351,24 @@ h1 {
 }
 
 
-/* =========================
+/* =====================================================
    ZGLOB
-========================= */
+===================================================== */
 
 .pivot {
+
     position: absolute;
 
-    left: 50%;
+    left: 450px;
+
     top: 137px;
 
-    transform: translateX(-50%);
-
     width: 34px;
+
     height: 34px;
+
+    transform:
+        translateX(-50%);
 
     border-radius: 50%;
 
@@ -302,27 +390,25 @@ h1 {
     cursor: grab;
 }
 
-.pivot:active {
-    cursor: grabbing;
-}
 
-
-/* =========================
+/* =====================================================
    GREDA
-========================= */
+===================================================== */
 
 .beam {
+
     position: absolute;
 
+    left: 450px;
+
+    top: 148px;
+
     width: 650px;
-    max-width: 78%;
 
     height: 13px;
 
-    left: 50%;
-    top: 148px;
-
-    transform: translateX(-50%);
+    transform:
+        translateX(-50%);
 
     background: linear-gradient(
         180deg,
@@ -346,21 +432,19 @@ h1 {
     z-index: 15;
 }
 
-.beam:active {
-    cursor: grabbing;
-}
 
-
-/* =========================
+/* =====================================================
    NOSAČI
-========================= */
+===================================================== */
 
 .hanger {
+
     position: absolute;
 
     top: 155px;
 
     width: 2px;
+
     height: 72px;
 
     background: #777;
@@ -369,72 +453,86 @@ h1 {
 }
 
 .left-hanger {
-    left: calc(50% - 325px);
+
+    left: 125px;
 }
 
 .right-hanger {
-    right: calc(50% - 325px);
+
+    left: 773px;
 }
 
 
-/* =========================
+/* =====================================================
    LANCI
-========================= */
+===================================================== */
 
 .chain {
+
     position: absolute;
 
     top: 215px;
 
     width: 110px;
+
     height: 70px;
 
     z-index: 5;
 }
 
 .left-chain {
-    left: calc(50% - 380px);
+
+    left: 70px;
 }
 
 .right-chain {
-    right: calc(50% - 380px);
+
+    left: 720px;
 }
 
 .chain::before,
 .chain::after {
+
     content: "";
 
     position: absolute;
 
     width: 2px;
+
     height: 75px;
 
     background: #858585;
 }
 
 .chain::before {
+
     left: 20px;
 
-    transform: rotate(18deg);
+    transform:
+        rotate(18deg);
 }
 
 .chain::after {
+
     right: 20px;
 
-    transform: rotate(-18deg);
+    transform:
+        rotate(-18deg);
 }
 
 
-/* =========================
+/* =====================================================
    ZDJELICE
-========================= */
+===================================================== */
 
 .pan {
+
     position: absolute;
 
     top: 275px;
 
     width: 235px;
+
     height: 105px;
 
     background: linear-gradient(
@@ -458,37 +556,43 @@ h1 {
 }
 
 .left-pan {
+
     left: 25px;
 }
 
 .right-pan {
-    right: 25px;
+
+    left: 640px;
 }
 
 
-/* =========================
+/* =====================================================
    SADRŽAJ ZDJELICA
-========================= */
+===================================================== */
 
 .pan-content {
+
     position: absolute;
 
     left: 12px;
+
     right: 12px;
 
     top: 20px;
-    bottom: 10px;
 
-    z-index: 10;
+    bottom: 10px;
 
     display: flex;
 
     flex-direction: column;
 
     align-items: center;
+
+    z-index: 10;
 }
 
 .pan-title {
+
     font-size: 14px;
 
     letter-spacing: 1px;
@@ -499,6 +603,7 @@ h1 {
 }
 
 .items-zone {
+
     width: 100%;
 
     min-height: 55px;
@@ -508,76 +613,26 @@ h1 {
     flex-wrap: wrap;
 
     justify-content: center;
+
     align-items: center;
 
     gap: 7px;
 }
 
 
-/* =========================
-   KONTROLE
-========================= */
-
-.controls {
-    margin: 25px auto;
-}
-
-input {
-    width: 300px;
-    max-width: 70%;
-
-    padding: 12px;
-
-    border: 1px solid #29234a;
-
-    background: #fffaf1;
-
-    font-family: Georgia, serif;
-
-    font-size: 15px;
-}
-
-.add-button {
-    padding: 12px 18px;
-
-    margin-left: 6px;
-
-    border: none;
-
-    background: #29234a;
-
-    color: white;
-
-    font-family: Georgia, serif;
-
-    cursor: pointer;
-}
-
-
-/* =========================
-   UPUTE
-========================= */
-
-.instruction {
-    margin-top: 15px;
-
-    font-size: 14px;
-
-    opacity: 0.7;
-}
-
-
-/* =========================
+/* =====================================================
    BILJEŠKE
-========================= */
+===================================================== */
 
 .notes {
+
     max-width: 650px;
 
     margin: 50px auto 0;
 }
 
 .question {
+
     font-size: 21px;
 
     margin-bottom: 15px;
@@ -586,6 +641,7 @@ input {
 }
 
 textarea {
+
     width: 100%;
 
     min-height: 150px;
@@ -606,72 +662,67 @@ textarea {
 }
 
 
-/* =========================
+/* =====================================================
    MOBITEL
-========================= */
+===================================================== */
 
 @media (max-width: 700px) {
 
     .page {
-        width: 100%;
 
-        padding: 25px 10px;
-
-        overflow-x: hidden;
+        padding:
+            25px 10px;
     }
 
     h1 {
+
         font-size: 30px;
     }
 
     .intro {
+
         font-size: 15px;
 
         margin-bottom: 25px;
     }
 
+    /*
+       OVDJE se cijela vaga smanjuje.
+
+       900 px × 0.40 = 360 px
+
+       Svi elementi unutar vage
+       smanjuju se zajedno.
+    */
+
     .scale-area {
+
+        --s: 0.40;
 
         width: 100%;
 
-        height: 245px;
+        height:
+            calc(420px * var(--s));
 
-        margin: 20px auto;
-
-        position: relative;
-
-        overflow: hidden;
+        margin:
+            20px auto;
     }
-
-    /*
-       VAŽNO:
-       Vaga ostaje u svom originalnom
-       900 px koordinatnom sustavu.
-       Smanjuje se kao cijela konstrukcija.
-    */
 
     .scale {
 
-        width: 900px;
-
-        height: 420px;
-
-        position: absolute;
-
         left: 50%;
 
-        top: 0;
-
-        zoom: 0.40;
-
-        margin-left: -450px;
+        margin-left:
+            -450px;
     }
 
     .controls {
+
         margin-top: 15px;
     }
 
     input {
+
         width: 62%;
 
         max-width: none;
@@ -680,65 +731,42 @@ textarea {
     }
 
     .add-button {
+
         padding: 10px 14px;
 
         margin-left: 3px;
     }
 
     .instruction {
-        font-size: 13px;
 
-        margin-top: 12px;
+        font-size: 13px;
     }
 
     .notes {
+
         margin-top: 30px;
     }
 
     .question {
+
         font-size: 19px;
     }
-
 }
 
 
-/* =========================
-   VRLO MALI MOBITELI
-========================= */
+/* =====================================================
+   JAKO MALI MOBITEL
+===================================================== */
 
 @media (max-width: 380px) {
 
-    .scale {
-        zoom: 0.35;
-
-        margin-left: -450px;
-    }
-
     .scale-area {
-        height: 220px;
+
+        --s: 0.35;
+
+        height:
+            calc(420px * var(--s));
     }
-
-    h1 {
-        font-size: 27px;
-    }
-
-}
-
-
-/* =========================
-   MOBITEL VODORAVNO
-========================= */
-
-@media (max-width: 700px) and (orientation: landscape) {
-
-    .scale-area {
-        height: 240px;
-    }
-
-    .scale {
-        zoom: 0.45;
-    }
-
 }
 
 </style>
@@ -747,6 +775,7 @@ textarea {
 
 
 <body>
+
 
 <div class="page">
 
@@ -765,9 +794,9 @@ textarea {
 </div>
 
 
-<!-- =========================
+<!-- =====================================================
      NOVE KARTICE
-========================= -->
+===================================================== -->
 
 <div
     class="new-items"
@@ -775,9 +804,9 @@ textarea {
 </div>
 
 
-<!-- =========================
+<!-- =====================================================
      DODAVANJE
-========================= -->
+===================================================== -->
 
 <div class="controls">
 
@@ -804,30 +833,24 @@ textarea {
 </div>
 
 
-<!-- =========================
+<!-- =====================================================
      VAGA
-========================= -->
+===================================================== -->
 
 <div class="scale-area">
 
     <div class="scale">
 
 
-        <!-- STUP -->
-
         <div class="stand"></div>
 
         <div class="base"></div>
 
 
-        <!-- POKRETNI DIO -->
-
         <div
             class="balance"
             id="balance">
 
-
-            <!-- GREDA -->
 
             <div
                 class="beam"
@@ -835,26 +858,18 @@ textarea {
             </div>
 
 
-            <!-- ZGLOB -->
-
             <div class="pivot"></div>
 
-
-            <!-- NOSAČI -->
 
             <div class="hanger left-hanger"></div>
 
             <div class="hanger right-hanger"></div>
 
 
-            <!-- LANCI -->
-
             <div class="chain left-chain"></div>
 
             <div class="chain right-chain"></div>
 
-
-            <!-- LIJEVA ZDJELICA -->
 
             <div
                 class="pan left-pan"
@@ -875,8 +890,6 @@ textarea {
 
             </div>
 
-
-            <!-- DESNA ZDJELICA -->
 
             <div
                 class="pan right-pan"
@@ -905,9 +918,9 @@ textarea {
 </div>
 
 
-<!-- =========================
+<!-- =====================================================
      BILJEŠKE
-========================= -->
+===================================================== -->
 
 <div class="notes">
 
@@ -928,9 +941,9 @@ textarea {
 
 <script>
 
-/* =========================
+/* =====================================================
    KARTICE
-========================= */
+===================================================== */
 
 let draggedItem = null;
 
@@ -939,9 +952,9 @@ let offsetX = 0;
 let offsetY = 0;
 
 
-/* =========================
+/* =====================================================
    VAGA
-========================= */
+===================================================== */
 
 let scaleAngle = 0;
 
@@ -952,55 +965,72 @@ let scaleStartX = 0;
 let scaleStartAngle = 0;
 
 
-/* =========================
-   DODAVANJE
-========================= */
+/* =====================================================
+   DODAVANJE ELEMENTA
+===================================================== */
 
 function addItem() {
 
     const input =
-        document.getElementById("newItem");
+        document.getElementById(
+            "newItem"
+        );
 
     const text =
         input.value.trim();
 
     if (!text) return;
 
+
     const item =
         createItem(text);
 
+
     document
-        .getElementById("newItems")
+        .getElementById(
+            "newItems"
+        )
         .appendChild(item);
 
+
     input.value = "";
+
 
     save();
 }
 
 
-/* =========================
+/* =====================================================
    KREIRANJE KARTICE
-========================= */
+===================================================== */
 
 function createItem(text) {
 
     const item =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
 
-    item.className = "item";
+    item.className =
+        "item";
 
 
     const textSpan =
-        document.createElement("span");
+        document.createElement(
+            "span"
+        );
 
-    textSpan.textContent = text;
+    textSpan.textContent =
+        text;
 
 
     const deleteButton =
-        document.createElement("button");
+        document.createElement(
+            "button"
+        );
 
-    deleteButton.textContent = "×";
+    deleteButton.textContent =
+        "×";
 
     deleteButton.className =
         "delete-button";
@@ -1030,9 +1060,13 @@ function createItem(text) {
     );
 
 
-    item.appendChild(textSpan);
+    item.appendChild(
+        textSpan
+    );
 
-    item.appendChild(deleteButton);
+    item.appendChild(
+        deleteButton
+    );
 
 
     item.addEventListener(
@@ -1045,9 +1079,9 @@ function createItem(text) {
 }
 
 
-/* =========================
-   POČETAK POVLAČENJA
-========================= */
+/* =====================================================
+   POČETAK POVLAČENJA KARTICE
+===================================================== */
 
 function startDrag(event) {
 
@@ -1059,7 +1093,9 @@ function startDrag(event) {
         return;
     }
 
+
     event.preventDefault();
+
 
     draggedItem =
         event.currentTarget;
@@ -1070,10 +1106,13 @@ function startDrag(event) {
 
 
     offsetX =
-        event.clientX - rect.left;
+        event.clientX -
+        rect.left;
+
 
     offsetY =
-        event.clientY - rect.top;
+        event.clientY -
+        rect.top;
 
 
     draggedItem.classList.add(
@@ -1102,9 +1141,9 @@ function startDrag(event) {
 }
 
 
-/* =========================
+/* =====================================================
    POVLAČENJE KARTICE
-========================= */
+===================================================== */
 
 function moveDrag(event) {
 
@@ -1112,17 +1151,23 @@ function moveDrag(event) {
 
 
     draggedItem.style.left =
-        (event.clientX - offsetX) + "px";
+        (
+            event.clientX -
+            offsetX
+        ) + "px";
 
 
     draggedItem.style.top =
-        (event.clientY - offsetY) + "px";
+        (
+            event.clientY -
+            offsetY
+        ) + "px";
 }
 
 
-/* =========================
-   ZAVRŠETAK KARTICE
-========================= */
+/* =====================================================
+   ZAVRŠETAK POVLAČENJA
+===================================================== */
 
 function endDrag(event) {
 
@@ -1137,13 +1182,17 @@ function endDrag(event) {
 
     const leftPan =
         document
-        .getElementById("leftPan")
+        .getElementById(
+            "leftPan"
+        )
         .getBoundingClientRect();
 
 
     const rightPan =
         document
-        .getElementById("rightPan")
+        .getElementById(
+            "rightPan"
+        )
         .getBoundingClientRect();
 
 
@@ -1154,8 +1203,6 @@ function endDrag(event) {
         event.clientY;
 
 
-    /* LIJEVA */
-
     if (
         x >= leftPan.left &&
         x <= leftPan.right &&
@@ -1164,15 +1211,14 @@ function endDrag(event) {
     ) {
 
         document
-            .getElementById("leftItems")
+            .getElementById(
+                "leftItems"
+            )
             .appendChild(
                 draggedItem
             );
 
     }
-
-
-    /* DESNA */
 
     else if (
         x >= rightPan.left &&
@@ -1182,24 +1228,24 @@ function endDrag(event) {
     ) {
 
         document
-            .getElementById("rightItems")
+            .getElementById(
+                "rightItems"
+            )
             .appendChild(
                 draggedItem
             );
 
     }
 
-
-    /* NATRAG */
-
     else {
 
         document
-            .getElementById("newItems")
+            .getElementById(
+                "newItems"
+            )
             .appendChild(
                 draggedItem
             );
-
     }
 
 
@@ -1208,33 +1254,41 @@ function endDrag(event) {
     );
 
 
-    draggedItem.style.position = "";
+    draggedItem.style.position =
+        "";
 
-    draggedItem.style.left = "";
+    draggedItem.style.left =
+        "";
 
-    draggedItem.style.top = "";
+    draggedItem.style.top =
+        "";
 
-    draggedItem.style.width = "";
+    draggedItem.style.width =
+        "";
 
 
     draggedItem = null;
+
 
     save();
 }
 
 
-/* =========================
-   POČETAK NAGIBA
-========================= */
+/* =====================================================
+   POČETAK NAGIBA VAGE
+===================================================== */
 
 function startScaleDrag(event) {
 
     event.preventDefault();
 
+
     draggingScale = true;
+
 
     scaleStartX =
         event.clientX;
+
 
     scaleStartAngle =
         scaleAngle;
@@ -1254,9 +1308,9 @@ function startScaleDrag(event) {
 }
 
 
-/* =========================
+/* =====================================================
    MIČI VAGU
-========================= */
+===================================================== */
 
 function moveScale(event) {
 
@@ -1264,7 +1318,8 @@ function moveScale(event) {
 
 
     const difference =
-        event.clientX - scaleStartX;
+        event.clientX -
+        scaleStartX;
 
 
     scaleAngle =
@@ -1273,25 +1328,29 @@ function moveScale(event) {
 
 
     if (scaleAngle > 25) {
+
         scaleAngle = 25;
     }
 
 
     if (scaleAngle < -25) {
+
         scaleAngle = -25;
     }
 
 
     document
-        .getElementById("balance")
+        .getElementById(
+            "balance"
+        )
         .style.transform =
         `rotate(${scaleAngle}deg)`;
 }
 
 
-/* =========================
+/* =====================================================
    KRAJ NAGIBA
-========================= */
+===================================================== */
 
 function endScaleDrag() {
 
@@ -1308,12 +1367,14 @@ function endScaleDrag() {
 }
 
 
-/* =========================
-   UPRAVLJANJE VAGOM
-========================= */
+/* =====================================================
+   KONTROLA VAGE
+===================================================== */
 
 document
-    .getElementById("beam")
+    .getElementById(
+        "beam"
+    )
     .addEventListener(
         "pointerdown",
         startScaleDrag
@@ -1321,16 +1382,18 @@ document
 
 
 document
-    .querySelector(".pivot")
+    .querySelector(
+        ".pivot"
+    )
     .addEventListener(
         "pointerdown",
         startScaleDrag
     );
 
 
-/* =========================
+/* =====================================================
    SPREMANJE
-========================= */
+===================================================== */
 
 function save() {
 
@@ -1369,7 +1432,9 @@ function save() {
 
     const notes =
         document
-        .getElementById("notes")
+        .getElementById(
+            "notes"
+        )
         .value;
 
 
@@ -1404,9 +1469,9 @@ function save() {
 }
 
 
-/* =========================
+/* =====================================================
    UČITAVANJE
-========================= */
+===================================================== */
 
 function load() {
 
@@ -1438,7 +1503,9 @@ function load() {
         text => {
 
             document
-                .getElementById("leftItems")
+                .getElementById(
+                    "leftItems"
+                )
                 .appendChild(
                     createItem(text)
                 );
@@ -1451,7 +1518,9 @@ function load() {
         text => {
 
             document
-                .getElementById("rightItems")
+                .getElementById(
+                    "rightItems"
+                )
                 .appendChild(
                     createItem(text)
                 );
@@ -1464,7 +1533,9 @@ function load() {
         text => {
 
             document
-                .getElementById("newItems")
+                .getElementById(
+                    "newItems"
+                )
                 .appendChild(
                     createItem(text)
                 );
@@ -1474,7 +1545,9 @@ function load() {
 
 
     document
-        .getElementById("notes")
+        .getElementById(
+            "notes"
+        )
         .value =
         localStorage.getItem(
             "scaleNotes"
@@ -1490,30 +1563,36 @@ function load() {
 
 
     document
-        .getElementById("balance")
+        .getElementById(
+            "balance"
+        )
         .style.transform =
         `rotate(${scaleAngle}deg)`;
 }
 
 
-/* =========================
+/* =====================================================
    GUMB
-========================= */
+===================================================== */
 
 document
-    .getElementById("addButton")
+    .getElementById(
+        "addButton"
+    )
     .addEventListener(
         "click",
         addItem
     );
 
 
-/* =========================
+/* =====================================================
    ENTER
-========================= */
+===================================================== */
 
 document
-    .getElementById("newItem")
+    .getElementById(
+        "newItem"
+    )
     .addEventListener(
         "keydown",
         function(event) {
@@ -1530,21 +1609,23 @@ document
     );
 
 
-/* =========================
+/* =====================================================
    BILJEŠKE
-========================= */
+===================================================== */
 
 document
-    .getElementById("notes")
+    .getElementById(
+        "notes"
+    )
     .addEventListener(
         "input",
         save
     );
 
 
-/* =========================
-   POKRENI
-========================= */
+/* =====================================================
+   POKRETANJE
+===================================================== */
 
 load();
 
