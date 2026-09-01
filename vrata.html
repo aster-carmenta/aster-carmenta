@@ -2,7 +2,7 @@
 <html lang="hr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Tvoj osobni simbol – Vrata</title>
 
@@ -78,6 +78,7 @@ h1 {
     align-items: center;
     gap: 4px;
     max-width: 90vw;
+    white-space: nowrap;
 }
 
 .item:active {
@@ -111,17 +112,33 @@ h1 {
 }
 
 /* -------------------------
-   VRATA - PODRUČJE
+   VRATA - WRAPPER ZA SKALIRANJE
 ------------------------- */
 
-.door-area {
+/*
+   Wrapper drži prostor onoliko visok koliko treba
+   nakon što se .door-area smanji (JS postavlja visinu).
+   .door-area se centrira i skalira kao jedna cjelina,
+   pa strane i vrata uvijek ostaju u ISTOM REDU,
+   bez obzira koliko je ekran uzak.
+*/
+
+.door-area-wrapper {
     position: relative;
-    max-width: 900px;
+    width: 100%;
     margin: 0 auto;
-    display: flex;
+}
+
+.door-area {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
+    transform-origin: top center;
+    display: inline-flex;
     align-items: center;
-    justify-content: space-between;
     gap: 20px;
+    white-space: nowrap;
 }
 
 /* STRANE */
@@ -132,6 +149,8 @@ h1 {
     border: 1px solid rgba(41, 35, 74, 0.35);
     padding: 20px;
     background: rgba(255, 250, 241, 0.35);
+    white-space: normal;
+    flex-shrink: 0;
 }
 
 .side-title {
@@ -447,50 +466,6 @@ textarea {
     resize: vertical;
 }
 
-/* -------------------------
-   MOBITEL / TABLET
-------------------------- */
-
-@media (max-width: 800px) {
-
-    .door-area {
-        flex-direction: column;
-        height: auto;
-    }
-
-    .side {
-        width: 100%;
-        max-width: 400px;
-        min-height: auto;
-    }
-
-    .items-zone {
-        min-height: 90px;
-    }
-
-    .door-wrapper {
-        order: 0;
-    }
-
-    .side:first-child {
-        order: 1;
-    }
-
-    .side:last-child {
-        order: 2;
-    }
-}
-
-/* Skaliranje vrata na uskim ekranima (mobiteli < 300px širine za vrata) */
-
-@media (max-width: 340px) {
-
-    .door-wrapper {
-        transform: scale(0.85);
-        margin: -30px 0;
-    }
-}
-
 @media (max-width: 400px) {
 
     h1 {
@@ -551,9 +526,11 @@ textarea {
 </div>
 
 
-<!-- VRATA -->
+<!-- VRATA (skalirano kao cjelina preko JS-a, uvijek u jednom redu) -->
 
-<div class="door-area">
+<div class="door-area-wrapper" id="doorAreaWrapper">
+
+<div class="door-area" id="doorArea">
 
 
     <!-- IZA VRATA -->
@@ -607,6 +584,8 @@ textarea {
         </div>
 
     </div>
+
+</div>
 
 </div>
 
@@ -769,7 +748,6 @@ function startDrag(event) {
     draggedItem =
         event.currentTarget;
 
-    /* Osigurava da svi budući pointer eventi idu ovom elementu (bitno na dodir) */
     try {
         draggedItem.setPointerCapture(event.pointerId);
     } catch (e) {}
@@ -785,6 +763,17 @@ function startDrag(event) {
     offsetY =
         event.clientY - rect.top;
 
+    const width = rect.width;
+
+    /*
+       Kartica se premješta izravno u <body>.
+       Time izbjegavamo da skalirana (transformirana)
+       .door-area pokvari poziciju "position: fixed"
+       elementa dok ga povlačimo prstom/mišem.
+    */
+
+    document.body.appendChild(draggedItem);
+
 
     draggedItem.classList.add(
         "dragging"
@@ -792,7 +781,7 @@ function startDrag(event) {
 
 
     draggedItem.style.width =
-        rect.width + "px";
+        width + "px";
 
 
     moveDrag(event);
@@ -945,6 +934,8 @@ function endDrag(event) {
 
 
     save();
+
+    fitDoorArea();
 }
 
 
@@ -966,6 +957,60 @@ document
 
         }
     );
+
+
+/* -------------------------
+   SKALIRANJE VRATA-PODRUČJA
+   (da uvijek stanu u jedan red)
+------------------------- */
+
+function fitDoorArea() {
+
+    const wrapper =
+        document.getElementById("doorAreaWrapper");
+
+    const area =
+        document.getElementById("doorArea");
+
+    /*
+       offsetWidth/offsetHeight uvijek vraćaju
+       PRIRODNU veličinu (bez utjecaja transform-a),
+       pa možemo izračunati potreban faktor smanjenja.
+    */
+
+    const naturalWidth =
+        area.offsetWidth;
+
+    const naturalHeight =
+        area.offsetHeight;
+
+    const available =
+        wrapper.clientWidth;
+
+    let scale =
+        available / naturalWidth;
+
+    if (scale > 1) {
+        scale = 1;
+    }
+
+    area.style.transform =
+        "translateX(-50%) scale(" + scale + ")";
+
+    wrapper.style.height =
+        (naturalHeight * scale) + "px";
+}
+
+
+window.addEventListener(
+    "resize",
+    fitDoorArea
+);
+
+window.addEventListener(
+    "orientationchange",
+    fitDoorArea
+);
 
 
 /* -------------------------
@@ -1186,6 +1231,8 @@ document
 ------------------------- */
 
 load();
+
+fitDoorArea();
 
 </script>
 
