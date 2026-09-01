@@ -13,12 +13,11 @@
 
 <title>Tvoj osobni simbol – Vaga</title>
 
-
 <style>
 
-/* =====================================================
+/* =========================
    OSNOVNO
-===================================================== */
+========================= */
 
 * {
     box-sizing: border-box;
@@ -39,22 +38,21 @@ body {
 }
 
 .page {
-    width: 100%;
     max-width: 1000px;
-    margin: 0 auto;
+    margin: auto;
     padding: 50px 25px;
     text-align: center;
 }
 
 
-/* =====================================================
+/* =========================
    NASLOV
-===================================================== */
+========================= */
 
 h1 {
     font-size: 38px;
     font-weight: normal;
-    margin: 0 0 15px;
+    margin-bottom: 15px;
 }
 
 .intro {
@@ -64,12 +62,11 @@ h1 {
 }
 
 
-/* =====================================================
-   KARTICE
-===================================================== */
+/* =========================
+   NOVE KARTICE
+========================= */
 
 .new-items {
-
     min-height: 70px;
 
     display: flex;
@@ -82,8 +79,12 @@ h1 {
     margin-bottom: 20px;
 }
 
-.item {
 
+/* =========================
+   KARTICE
+========================= */
+
+.item {
     background: #fffaf1;
 
     border: 1px solid #29234a;
@@ -100,12 +101,12 @@ h1 {
 
     touch-action: none;
 
+    z-index: 100;
+
     display: flex;
     align-items: center;
 
     gap: 4px;
-
-    z-index: 100;
 }
 
 .item:active {
@@ -113,7 +114,6 @@ h1 {
 }
 
 .item.dragging {
-
     position: fixed;
 
     z-index: 1000;
@@ -124,7 +124,6 @@ h1 {
 }
 
 .delete-button {
-
     margin-left: 6px;
 
     padding: 0;
@@ -145,16 +144,15 @@ h1 {
 }
 
 
-/* =====================================================
+/* =========================
    KONTROLE
-===================================================== */
+========================= */
 
 .controls {
     margin: 25px auto;
 }
 
 input {
-
     width: 300px;
 
     max-width: 70%;
@@ -171,7 +169,6 @@ input {
 }
 
 .add-button {
-
     padding: 12px 18px;
 
     margin-left: 6px;
@@ -188,7 +185,6 @@ input {
 }
 
 .instruction {
-
     margin-top: 15px;
 
     font-size: 14px;
@@ -198,75 +194,50 @@ input {
 
 
 /* =====================================================
-   VAGA – ZAJEDNIČKA SKALA
+   VAGA — DESKTOP
 ===================================================== */
 
-/*
-   Ovo je najvažnija stvar.
-
-   Na računalu:
-   --s = 1
-
-   Na mobitelu:
-   --s = 0.42
-
-   Sve dimenzije vage koriste ovu vrijednost.
-*/
-
 .scale-area {
-
-    --s: 1;
-
     position: relative;
 
     width: 900px;
 
     max-width: 100%;
 
-    height: calc(540px * var(--s));
+    height: 540px;
 
     margin: 25px auto 10px;
 }
 
-
-/* =====================================================
-   CIJELA VAGA
-===================================================== */
-
 .scale {
-
     position: absolute;
 
-    left: 0;
-    top: 0;
-
-    width: 900px;
+    width: 100%;
 
     height: 420px;
 
-    transform-origin: top left;
+    top: 20px;
 
-    transform: scale(var(--s));
+    left: 0;
 }
 
 
-/* =====================================================
+/* =========================
    STUP
-===================================================== */
+========================= */
 
 .stand {
-
     position: absolute;
 
-    left: 450px;
+    left: 50%;
 
     top: 150px;
+
+    transform: translateX(-50%);
 
     width: 16px;
 
     height: 225px;
-
-    transform: translateX(-50%);
 
     background: linear-gradient(
         90deg,
@@ -288,23 +259,22 @@ input {
 }
 
 
-/* =====================================================
+/* =========================
    POSTOLJE
-===================================================== */
+========================= */
 
 .base {
-
     position: absolute;
 
-    left: 450px;
+    left: 50%;
 
     top: 360px;
+
+    transform: translateX(-50%);
 
     width: 125px;
 
     height: 18px;
-
-    transform: translateX(-50%);
 
     background: linear-gradient(
         180deg,
@@ -323,24 +293,23 @@ input {
 }
 
 
-/* =====================================================
-   POKRETNA GREDA
-===================================================== */
+/* =========================
+   POKRETNI DIO
+========================= */
 
 .balance {
-
     position: absolute;
+
+    width: 100%;
+
+    height: 300px;
 
     left: 0;
 
     top: 0;
 
-    width: 900px;
-
-    height: 300px;
-
     transform-origin:
-        450px 150px;
+        50% 150px;
 
     transform:
         rotate(0deg);
@@ -351,24 +320,23 @@ input {
 }
 
 
-/* =====================================================
+/* =========================
    ZGLOB
-===================================================== */
+========================= */
 
 .pivot {
-
     position: absolute;
 
-    left: 450px;
+    left: 50%;
 
     top: 137px;
+
+    transform:
+        translateX(-50%);
 
     width: 34px;
 
     height: 34px;
-
-    transform:
-        translateX(-50%);
 
     border-radius: 50%;
 
@@ -391,21 +359,20 @@ input {
 }
 
 
-/* =====================================================
+/* =========================
    GREDA
-===================================================== */
+========================= */
 
 .beam {
-
     position: absolute;
-
-    left: 450px;
-
-    top: 148px;
 
     width: 650px;
 
     height: 13px;
+
+    left: 50%;
+
+    top: 148px;
 
     transform:
         translateX(-50%);
@@ -433,12 +400,11 @@ input {
 }
 
 
-/* =====================================================
+/* =========================
    NOSAČI
-===================================================== */
+========================= */
 
 .hanger {
-
     position: absolute;
 
     top: 155px;
@@ -453,22 +419,19 @@ input {
 }
 
 .left-hanger {
-
-    left: 125px;
+    left: calc(50% - 325px);
 }
 
 .right-hanger {
-
-    left: 773px;
+    right: calc(50% - 325px);
 }
 
 
-/* =====================================================
+/* =========================
    LANCI
-===================================================== */
+========================= */
 
 .chain {
-
     position: absolute;
 
     top: 215px;
@@ -481,13 +444,11 @@ input {
 }
 
 .left-chain {
-
-    left: 70px;
+    left: calc(50% - 380px);
 }
 
 .right-chain {
-
-    left: 720px;
+    right: calc(50% - 380px);
 }
 
 .chain::before,
@@ -521,9 +482,9 @@ input {
 }
 
 
-/* =====================================================
+/* =========================
    ZDJELICE
-===================================================== */
+========================= */
 
 .pan {
 
@@ -556,19 +517,17 @@ input {
 }
 
 .left-pan {
-
     left: 25px;
 }
 
 .right-pan {
-
-    left: 640px;
+    right: 25px;
 }
 
 
-/* =====================================================
+/* =========================
    SADRŽAJ ZDJELICA
-===================================================== */
+========================= */
 
 .pan-content {
 
@@ -582,13 +541,13 @@ input {
 
     bottom: 10px;
 
+    z-index: 10;
+
     display: flex;
 
     flex-direction: column;
 
     align-items: center;
-
-    z-index: 10;
 }
 
 .pan-title {
@@ -620,9 +579,9 @@ input {
 }
 
 
-/* =====================================================
+/* =========================
    BILJEŠKE
-===================================================== */
+========================= */
 
 .notes {
 
@@ -669,52 +628,308 @@ textarea {
 @media (max-width: 700px) {
 
     .page {
-
-        padding:
-            25px 10px;
+        padding: 25px 10px;
     }
 
-    h1 {
 
+    h1 {
         font-size: 30px;
     }
 
-    .intro {
 
+    .intro {
         font-size: 15px;
 
         margin-bottom: 25px;
     }
 
-    /*
-       OVDJE se cijela vaga smanjuje.
 
-       900 px × 0.40 = 360 px
-
-       Svi elementi unutar vage
-       smanjuju se zajedno.
-    */
+    /* ---------------------------------
+       PROSTOR VAGE
+    --------------------------------- */
 
     .scale-area {
 
-        --s: 0.40;
+        width: 400px;
 
-        width: 100%;
+        max-width: 100%;
 
-        height:
-            calc(420px * var(--s));
+        height: 250px;
 
         margin:
             20px auto;
+
+        position: relative;
+
+        overflow: hidden;
     }
+
+
+    /* ---------------------------------
+       CIJELA VAGA
+    --------------------------------- */
 
     .scale {
 
-        left: 50%;
+        width: 400px;
 
-        margin-left:
-            -450px;
+        height: 190px;
+
+        top: 0;
+
+        left: 0;
     }
+
+
+    /* ---------------------------------
+       STUP
+    --------------------------------- */
+
+    .stand {
+
+        left: 200px;
+
+        top: 72px;
+
+        width: 8px;
+
+        height: 105px;
+
+        border-radius:
+            4px 4px 2px 2px;
+    }
+
+
+    /* ---------------------------------
+       POSTOLJE
+    --------------------------------- */
+
+    .base {
+
+        left: 200px;
+
+        top: 170px;
+
+        width: 56px;
+
+        height: 10px;
+
+        border-radius:
+            5px 5px 2px 2px;
+    }
+
+
+    /* ---------------------------------
+       POKRETNI DIO
+    --------------------------------- */
+
+    .balance {
+
+        width: 400px;
+
+        height: 140px;
+
+        left: 0;
+
+        top: 0;
+
+        transform-origin:
+            200px 67px;
+    }
+
+
+    /* ---------------------------------
+       ZGLOB
+    --------------------------------- */
+
+    .pivot {
+
+        left: 200px;
+
+        top: 61px;
+
+        width: 18px;
+
+        height: 18px;
+
+        border-width: 1px;
+    }
+
+
+    /* ---------------------------------
+       GREDA
+    --------------------------------- */
+
+    .beam {
+
+        left: 200px;
+
+        top: 66px;
+
+        width: 290px;
+
+        height: 8px;
+
+        border-radius: 4px;
+    }
+
+
+    /* ---------------------------------
+       NOSAČI
+    --------------------------------- */
+
+    .hanger {
+
+        top: 71px;
+
+        width: 2px;
+
+        height: 46px;
+    }
+
+    .left-hanger {
+
+        left: 55px;
+    }
+
+    .right-hanger {
+
+        left: 343px;
+    }
+
+
+    /* ---------------------------------
+       LANCI
+    --------------------------------- */
+
+    .chain {
+
+        top: 105px;
+
+        width: 50px;
+
+        height: 45px;
+    }
+
+    .left-chain {
+
+        left: 25px;
+    }
+
+    .right-chain {
+
+        left: 325px;
+    }
+
+    .chain::before,
+    .chain::after {
+
+        width: 2px;
+
+        height: 48px;
+    }
+
+    .chain::before {
+
+        left: 10px;
+    }
+
+    .chain::after {
+
+        right: 10px;
+    }
+
+
+    /* ---------------------------------
+       ZDJELICE
+    --------------------------------- */
+
+    .pan {
+
+        top: 135px;
+
+        width: 105px;
+
+        height: 55px;
+
+        border-width: 1px;
+
+        border-radius:
+            10px 10px 55px 55px;
+    }
+
+    .left-pan {
+
+        left: 5px;
+    }
+
+    .right-pan {
+
+        left: 290px;
+
+        right: auto;
+    }
+
+
+    /* ---------------------------------
+       SADRŽAJ ZDJELICA
+    --------------------------------- */
+
+    .pan-content {
+
+        left: 6px;
+
+        right: 6px;
+
+        top: 9px;
+
+        bottom: 5px;
+    }
+
+    .pan-title {
+
+        font-size: 8px;
+
+        letter-spacing: 0.3px;
+
+        margin-bottom: 3px;
+    }
+
+    .items-zone {
+
+        min-height: 28px;
+
+        gap: 3px;
+    }
+
+
+    /* ---------------------------------
+       KARTICE U ZDJELICAMA
+    --------------------------------- */
+
+    .item {
+
+        padding:
+            4px 5px 4px 6px;
+
+        font-size: 9px;
+
+        border-radius: 9px;
+
+        gap: 2px;
+    }
+
+    .delete-button {
+
+        font-size: 12px;
+
+        margin-left: 2px;
+    }
+
+
+    /* ---------------------------------
+       KONTROLE
+    --------------------------------- */
 
     .controls {
 
@@ -732,15 +947,23 @@ textarea {
 
     .add-button {
 
-        padding: 10px 14px;
+        padding:
+            10px 12px;
 
-        margin-left: 3px;
+        margin-left: 2px;
     }
 
     .instruction {
 
         font-size: 13px;
+
+        margin-top: 12px;
     }
+
+
+    /* ---------------------------------
+       BILJEŠKE
+    --------------------------------- */
 
     .notes {
 
@@ -751,21 +974,94 @@ textarea {
 
         font-size: 19px;
     }
+
 }
 
 
 /* =====================================================
-   JAKO MALI MOBITEL
+   VRLO MALI MOBITEL
 ===================================================== */
 
-@media (max-width: 380px) {
+@media (max-width: 360px) {
 
     .scale-area {
 
-        --s: 0.35;
+        width: 350px;
 
-        height:
-            calc(420px * var(--s));
+        height: 225px;
+    }
+
+    .scale {
+
+        width: 350px;
+    }
+
+    .stand,
+    .base,
+    .pivot {
+
+        transform:
+            translateX(0);
+    }
+
+    .stand {
+
+        left: 175px;
+    }
+
+    .base {
+
+        left: 175px;
+    }
+
+    .pivot {
+
+        left: 175px;
+    }
+
+    .balance {
+
+        width: 350px;
+
+        transform-origin:
+            175px 67px;
+    }
+
+    .beam {
+
+        left: 175px;
+
+        width: 255px;
+    }
+
+    .left-hanger {
+
+        left: 47px;
+    }
+
+    .right-hanger {
+
+        left: 302px;
+    }
+
+    .left-chain {
+
+        left: 22px;
+    }
+
+    .right-chain {
+
+        left: 285px;
+    }
+
+    .left-pan {
+
+        left: 4px;
+    }
+
+    .right-pan {
+
+        left: 241px;
     }
 }
 
@@ -794,19 +1090,11 @@ textarea {
 </div>
 
 
-<!-- =====================================================
-     NOVE KARTICE
-===================================================== -->
-
 <div
     class="new-items"
     id="newItems">
 </div>
 
-
-<!-- =====================================================
-     DODAVANJE
-===================================================== -->
 
 <div class="controls">
 
@@ -832,10 +1120,6 @@ textarea {
 
 </div>
 
-
-<!-- =====================================================
-     VAGA
-===================================================== -->
 
 <div class="scale-area">
 
@@ -918,10 +1202,6 @@ textarea {
 </div>
 
 
-<!-- =====================================================
-     BILJEŠKE
-===================================================== -->
-
 <div class="notes">
 
     <div class="question">
@@ -942,7 +1222,7 @@ textarea {
 <script>
 
 /* =====================================================
-   KARTICE
+   VARIJABLE
 ===================================================== */
 
 let draggedItem = null;
@@ -951,10 +1231,6 @@ let offsetX = 0;
 
 let offsetY = 0;
 
-
-/* =====================================================
-   VAGA
-===================================================== */
 
 let scaleAngle = 0;
 
@@ -966,7 +1242,7 @@ let scaleStartAngle = 0;
 
 
 /* =====================================================
-   DODAVANJE ELEMENTA
+   DODAVANJE
 ===================================================== */
 
 function addItem() {
@@ -994,7 +1270,6 @@ function addItem() {
 
 
     input.value = "";
-
 
     save();
 }
@@ -1080,7 +1355,7 @@ function createItem(text) {
 
 
 /* =====================================================
-   POČETAK POVLAČENJA KARTICE
+   DRAG KARTICE
 ===================================================== */
 
 function startDrag(event) {
@@ -1141,10 +1416,6 @@ function startDrag(event) {
 }
 
 
-/* =====================================================
-   POVLAČENJE KARTICE
-===================================================== */
-
 function moveDrag(event) {
 
     if (!draggedItem) return;
@@ -1164,10 +1435,6 @@ function moveDrag(event) {
         ) + "px";
 }
 
-
-/* =====================================================
-   ZAVRŠETAK POVLAČENJA
-===================================================== */
 
 function endDrag(event) {
 
@@ -1254,17 +1521,13 @@ function endDrag(event) {
     );
 
 
-    draggedItem.style.position =
-        "";
+    draggedItem.style.position = "";
 
-    draggedItem.style.left =
-        "";
+    draggedItem.style.left = "";
 
-    draggedItem.style.top =
-        "";
+    draggedItem.style.top = "";
 
-    draggedItem.style.width =
-        "";
+    draggedItem.style.width = "";
 
 
     draggedItem = null;
@@ -1275,7 +1538,7 @@ function endDrag(event) {
 
 
 /* =====================================================
-   POČETAK NAGIBA VAGE
+   NAGIB VAGE
 ===================================================== */
 
 function startScaleDrag(event) {
@@ -1307,10 +1570,6 @@ function startScaleDrag(event) {
     );
 }
 
-
-/* =====================================================
-   MIČI VAGU
-===================================================== */
 
 function moveScale(event) {
 
@@ -1348,10 +1607,6 @@ function moveScale(event) {
 }
 
 
-/* =====================================================
-   KRAJ NAGIBA
-===================================================== */
-
 function endScaleDrag() {
 
     draggingScale = false;
@@ -1368,7 +1623,7 @@ function endScaleDrag() {
 
 
 /* =====================================================
-   KONTROLA VAGE
+   EVENTI VAGE
 ===================================================== */
 
 document
@@ -1624,7 +1879,7 @@ document
 
 
 /* =====================================================
-   POKRETANJE
+   START
 ===================================================== */
 
 load();
